@@ -22,6 +22,14 @@ function getStrength() {
     localStorage.setItem('strength', strength);
 }
 
+function setDefaults() {
+    $order.val(localStorage.getItem('order'));
+    $email.val(localStorage.getItem('email'));
+    $('input[data-role=size]:checked').val('size');
+    // $('[data-role="flavor"]').find(":selected").text();
+
+}
+
 
 $coffeeForm.submit(function (event) {
   event.preventDefault();
@@ -31,3 +39,5 @@ $coffeeForm.submit(function (event) {
   getFlavor();
   getStrength();
 });
+
+setDefaults();
