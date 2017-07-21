@@ -1,7 +1,7 @@
 var $coffeeForm = $('[data-coffee-order="form"]');
 var $order = $('[data-role="order"]');
 var $email = $('[data-role="email"]');
-
+var orders = [];
 
 function storeValue(name, title) {
     localStorage.setItem(title, name.val());
@@ -26,8 +26,11 @@ function setDefaults() {
     $order.val(localStorage.getItem('order'));
     $email.val(localStorage.getItem('email'));
     $('input[data-role=size]:checked').val('size');
-    // $('[data-role="flavor"]').find(":selected").text();
-
+    // $('[data-role="flavor"]').find(":selected").text()
+    // populate radio button
+    $('input:radio[data-role=size]').filter('[value=' + localStorage.getItem('size') + ']').prop('checked', true);
+    $('option[value=' + localStorage.getItem('flavor') + ']').prop('selected', true);
+    // .filter('[value=' + localStorage.getItem('flavor') + ']').attr('selected', 'selected');
 }
 
 
