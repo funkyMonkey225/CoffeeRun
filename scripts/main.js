@@ -23,14 +23,13 @@ function getStrength() {
 }
 
 function setDefaults() {
+    var flavorValue = (localStorage.getItem('flavor')).toLowerCase();
     $order.val(localStorage.getItem('order'));
     $email.val(localStorage.getItem('email'));
     $('input[data-role=size]:checked').val('size');
-    // $('[data-role="flavor"]').find(":selected").text()
-    // populate radio button
     $('input:radio[data-role=size]').filter('[value=' + localStorage.getItem('size') + ']').prop('checked', true);
-    $('option[value=' + localStorage.getItem('flavor') + ']').prop('selected', true);
-    // .filter('[value=' + localStorage.getItem('flavor') + ']').attr('selected', 'selected');
+    $('[data-role="flavor"]').find('option[value=' + flavorValue + ']').prop('selected', true);
+    $('[data-role="strength"]').val(localStorage.getItem('strength'));
 }
 
 
