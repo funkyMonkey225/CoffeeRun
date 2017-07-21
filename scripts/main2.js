@@ -1,4 +1,4 @@
-// local storage example
+// GET / POST to API with AJAX
 var $coffeeForm = $('[data-coffee-order="form"]');
 var $order = $('[data-role="order"]');
 var $email = $('[data-role="email"]');
