@@ -5,6 +5,7 @@ var $email = $('[data-role="email"]');
 var $size = $('[data-role="size"]')
 var $flavor = $('[data-role="flavor"]');
 var $strength = $('[data-role="strength"]');
+var $displayDiv = $('[data-draw="display"]');
 
 var URL = 'http://dc-coffeerun.herokuapp.com/api/coffeeorders';
 var order = {};
@@ -60,21 +61,6 @@ function sendDataToServer() {
     });
 }
 
-function drawOrders() {
-    var emails = Object.keys(parsedOrders);
-    var ordersArray = emails.map(function (email) {
-        var data = parsedOrders[email];
-        return data;
-    })
-
-    ordersArray.forEach(function(order1, i) {
-        var $orderPrint = $('<p></p>', {
-            'text': order1['email'] + ": "  
-        });
-    })
-}
-
-
 function coffeeStrengthRating (strength) { 
     if (strength === 0) {
         return "Decaf";
@@ -87,10 +73,31 @@ function coffeeStrengthRating (strength) {
     } else {
         return "Very strong";
     }
+}
+
+function drawOrders() {
+    var emails = Object.keys(parsedOrders);
+    var ordersArray = emails.map(function (email) {
+        var data = parsedOrders[email];
+        return data;
+    })
+
+    ordersArray.forEach(function(order1, i) {
+        var strengthRate = coffeeStrengthRating(ordersArray['strength'])
+        var $orderPrint = $('<p></p>', {
+            'text': order1['email'] + ": " + strengthRate + ordersArray['size'] + ordersArray['flavor'] + ordersArray['order'],
+            'class': 'display-order',
+            'data-draw': 'order', 
+        });
+        $displayDiv.append($orderPrint);
+    });
+}
 
 
 
 // setDefaults();
+
+drawOrders();
 
 $coffeeForm.submit(function (event) {
   event.preventDefault();
