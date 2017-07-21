@@ -9,6 +9,7 @@ var $strength = $('[data-role="strength"]');
 var URL = 'http://dc-coffeerun.herokuapp.com/api/coffeeorders';
 var order = {};
 var priorOrders;
+var parsedOrders;
 
 function storeValue(name) {
     order[name.attr('name')] = name.val();
@@ -46,6 +47,11 @@ function getServerData() {
     
 function storeData(orders) {
     localStorage.setItem('priorOrders', JSON.stringify(orders));
+    parseData();
+}
+
+function parseData() {
+    parsedOrders = JSON.parse(priorOrders);
 }
 
 function sendDataToServer() {
@@ -53,6 +59,36 @@ function sendDataToServer() {
         console.log(resp);
     });
 }
+
+function drawOrders() {
+    var emails = Object.keys(parsedOrders);
+    var ordersArray = emails.map(function (email) {
+        var data = parsedOrders[email];
+        return data;
+    })
+
+    ordersArray.forEach(function(order1, i) {
+        var $orderPrint = $('<p></p>', {
+            'text': order1['email'] + ": "  
+        });
+    })
+}
+
+
+function coffeeStrengthRating (strength) { 
+    if (strength === 0) {
+        return "Decaf";
+    } else if (strength <= 25) {
+        return "Lite";
+    } else if (strength <= 50) {
+        return "Medium";
+    } else if (strength <= 75) {
+        return "Strong";
+    } else {
+        return "Very strong";
+    }
+
+
 
 // setDefaults();
 
@@ -64,4 +100,5 @@ $coffeeForm.submit(function (event) {
   getFlavor();
   getStrength();
   sendDataToServer();
+  getServerData();
 });
