@@ -1,7 +1,7 @@
 html {
   box-sizing: border-box;
   font-size: 16px;
-  color: #3B241D;
+  color: #4A2E25;
 }
 
 *, *:before, *:after {
@@ -11,6 +11,9 @@ html {
 .jumbotron h1 {
     font-size: 4rem;
     font-family: 'Arizonia', cursive;
+    color: #4A2E25;
+    margin-top: 1rem;
+    margin-right: 4rem;
 }
 
 .jumbotron {
@@ -19,27 +22,42 @@ html {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    margin-bottom: 15px;
+}
+
+.container .jumbotron {
+    border-radius: 0px;
 }
 
 .panel {
     background-image: url("../images/oldpaper.jpg");
-    background-repeat: no-repeat;
+    background-repeat: repeat-y;
     background-position: center;
     background-size: cover;
     border: 0;
 }
 
-.content {
-    background-image: url("../images/oldpaper.jpg");
-    background-repeat: repeat-y;
-    background-position: center;
-    background-size: cover;
-}
-
 .form-control:focus {
-    border: 2px dashed #3B241D;
+    border: 2px dashed #4A2E25;
     border-radius: 5px;
     outline: none;
+}
+
+.subtitle {
+    font-family: 'Arizonia', cursive;
+    font-size: 2.25rem;
+    text-align: center;
+    color: #4A2E25;
+}
+
+.form-group {
+    color: #4A2E25;
+    font-family: 'Overlock', cursive;
+    font-weight: 100;
+    font-size: 1.2rem;
+}
+.orders {
+    text-align: center;
 }
 
 @media screen and (min-width: 550px) {
@@ -55,7 +73,9 @@ html {
     .jumbotron {
         height: 350px;
     }
-}
+    .subtitle {
+    font-size: 2.5rem;
+    }
 
 @media screen and (min-width: 750px) {
     .jumbotron {
@@ -72,5 +92,8 @@ html {
     }
     .jumbotron h1 {
     font-size: 7rem;
+    }
+    .subtitle {
+    font-size: 3rem;
     }
 }
