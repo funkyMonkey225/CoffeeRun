@@ -48,12 +48,12 @@ function getServerData() {
     
 function storeData(orders) {
     localStorage.setItem('priorOrders', JSON.stringify(orders));
-    parseData();
+    // parseData();
 }
 
-function parseData() {
-    parsedOrders = JSON.parse(priorOrders);
-}
+// function parseData(dict) {
+//     parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
+// }
 
 function sendDataToServer() {
     $.post(URL, order, function (resp) {
@@ -64,11 +64,13 @@ function sendDataToServer() {
 function coffeeStrengthRating (strength) { 
     if (strength === 0) {
         return "Decaf";
-    } else if (strength <= 25) {
+    } else if (strength <= 20) {
+        return "Extra lite";
+    } else if (strength <= 40) {
         return "Lite";
-    } else if (strength <= 50) {
-        return "Medium";
-    } else if (strength <= 75) {
+    } else if (strength <= 60) {
+        return "Medium strength";
+    } else if (strength <= 80) {
         return "Strong";
     } else {
         return "Very strong";
@@ -76,6 +78,7 @@ function coffeeStrengthRating (strength) {
 }
 
 function drawOrders() {
+    var parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
     var emails = Object.keys(parsedOrders);
     var ordersArray = emails.map(function (email) {
         var data = parsedOrders[email];
@@ -83,9 +86,9 @@ function drawOrders() {
     })
 
     ordersArray.forEach(function(order1, i) {
-        var strengthRate = coffeeStrengthRating(ordersArray['strength'])
+        var strengthRate = coffeeStrengthRating(ordersArray[i]['strength'])
         var $orderPrint = $('<p></p>', {
-            'text': order1['email'] + ": " + strengthRate + ordersArray['size'] + ordersArray['flavor'] + ordersArray['order'],
+            'text': ordersArray[i]['emailAddress'] + ": " + strengthRate + " " + ordersArray[i]['size'] + " " + ordersArray[i]['flavor'] + " " + ordersArray[i]['coffee'],
             'class': 'display-order',
             'data-draw': 'order', 
         });
@@ -97,6 +100,7 @@ function drawOrders() {
 
 // setDefaults();
 
+getServerData();
 drawOrders();
 
 $coffeeForm.submit(function (event) {
