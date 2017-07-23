@@ -43,6 +43,26 @@ html {
     outline: none;
 }
 
+.form-group {
+    color: #4A2E25;
+    font-family: 'Overlock', sans-serif;
+    font-weight: 100;
+    font-size: 1.2rem;
+}
+
+.radio {
+  color: #4A2E25;
+  font-family: 'Overlock', sans-serif;
+  font-size: 1rem;
+}
+
+.select,
+.select .option {
+  color: #4A2E25;
+  font-family: 'Overlock', sans-serif;
+  font-size: 1rem;
+}
+
 .subtitle {
     font-family: 'Arizonia', cursive;
     font-size: 2.25rem;
@@ -50,12 +70,6 @@ html {
     color: #4A2E25;
 }
 
-.form-group {
-    color: #4A2E25;
-    font-family: 'Overlock', cursive;
-    font-weight: 100;
-    font-size: 1.2rem;
-}
 .orders {
     text-align: center;
 }
