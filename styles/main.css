@@ -21,6 +21,21 @@ html {
     background-size: cover;
 }
 
+.panel {
+    background-image: url("../images/oldpaper.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    border: 0;
+}
+
+.content {
+    background-image: url("../images/oldpaper.jpg");
+    background-repeat: repeat-y;
+    background-position: center;
+    background-size: cover;
+}
+
 .form-control:focus {
     border: 2px dashed #3B241D;
     border-radius: 5px;
