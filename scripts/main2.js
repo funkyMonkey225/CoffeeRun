@@ -65,7 +65,7 @@ function coffeeStrengthRating (strength) {
     if (strength === 0) {
         return "Decaf";
     } else if (strength <= 20) {
-        return "Extra lite";
+        return "Very lite";
     } else if (strength <= 40) {
         return "Lite";
     } else if (strength <= 60) {
@@ -74,6 +74,14 @@ function coffeeStrengthRating (strength) {
         return "Strong";
     } else {
         return "Very strong";
+    }
+}
+
+function filterUndefined(element) {
+    if (element === undefined || element === "None") {
+        return "";
+    } else {
+        return (element.toLowerCase() + " ");
     }
 }
 
@@ -88,7 +96,7 @@ function drawOrders() {
     ordersArray.forEach(function(order1, i) {
         var strengthRate = coffeeStrengthRating(ordersArray[i]['strength'])
         var $orderPrint = $('<p></p>', {
-            'text': ordersArray[i]['emailAddress'] + ": " + strengthRate + " " + ordersArray[i]['size'] + " " + ordersArray[i]['flavor'] + " " + ordersArray[i]['coffee'],
+            'text': ordersArray[i]['emailAddress'] + ": " + strengthRate + " " + filterUndefined(ordersArray[i]['size']) + filterUndefined(ordersArray[i]['flavor']) + ordersArray[i]['coffee'],
             'class': 'display-order',
             'data-draw': 'order', 
         });

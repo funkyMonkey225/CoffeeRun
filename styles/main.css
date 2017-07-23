@@ -1,0 +1,28 @@
+.jumbotron {
+    height: 250px;
+    background-image: url("../images/coffee.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+
+@media screen and (min-width: 550px) {
+    .jumbotron {
+        height: 300px;
+    }
+
+@media screen and (min-width: 650px) {
+    .jumbotron {
+        height: 350px;
+    }
+
+@media screen and (min-width: 650px) {
+    .jumbotron {
+        height: 400px;
+    }
+
+@media screen and (min-width: 991px) {
+    .jumbotron {
+        height: 450px;
+    }
+}
