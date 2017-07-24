@@ -6,32 +6,38 @@ var $size = $('[data-role="size"]')
 var $flavor = $('[data-role="flavor"]');
 var $strength = $('[data-role="strength"]');
 var $displayDiv = $('[data-draw="display"]');
+var $myOrderDiv = $('[data-draw="my-order"]');
+var $emailSearch = $('[data-role="email-search-form"]');
 
 var URL = 'http://dc-coffeerun.herokuapp.com/api/coffeeorders';
 var order = {};
 var priorOrders;
 var parsedOrders;
 
-function storeValue(name) {
+function storeValue(name, title) {
     order[name.attr('name')] = name.val();
+    localStorage.setItem(title, name.val());
 }
 
 function getSize() {
     var size = $('input[data-role=size]:checked').val();
     order[$size.attr('name')] = size;
+    localStorage.setItem('size', size);
 }
 
 function getFlavor() {
     var flavor = $flavor.find(":selected").text();
     order[$flavor.attr('name')] = flavor;
+    localStorage.setItem('flavor', flavor);
 }
 
 function getStrength() {
     var strength = $strength.val();
     order[$strength.attr('name')] = strength;
+    localStorage.setItem('strength', strength);
 }
 
-// 
+
 // function setDefaults() {
 //     var flavorValue = (localStorage.getItem('flavor')).toLowerCase();
 //     $order.val(localStorage.getItem('order'));
@@ -103,6 +109,24 @@ function drawOrders() {
     });
 }
 
+function drawEmailSearch() {
+    var $search = $('<input>', {
+        'class': 'form-control',
+        'type': 'email',
+        'name': 'emailSearch',
+        'data-role': 'email-search',
+        'placeholder': 'Enter your email.'
+    });
+    $emailSearch.append($search);
+    var $submitBtn = $('<button></button>', {
+        'type': 'submit',
+        'class': 'btn btn-default',
+        'text': 'Search'
+    })
+    $emailSearch.append($submitBtn);
+}
+
+
 function showPastOrders() {
     var action = 1;
     $('[data-role="past-orders-button"]').on('click', function (event) {
@@ -124,16 +148,41 @@ function showPastOrders() {
     });
 }
 
+function searchByEmail() {
+    var action = 1;
+    $('[data-role="email-button"]').on('click', function (event) {
+        event.preventDefault();
+        if (action === 1) {
+            $emailSearch.show();
+            drawEmailSearch();
+            $('[data-role="email-button"]').text("Hide My Order");
+            action = 2;
+        } else if (action === 2) {
+            $emailSearch.hide();
+            $('[data-role="email-button"]').text("Search by Email");
+            action = 3;
+        } else {
+            $emailSearch.show();
+            $('[data-role="email-button"]').text("Hide My Order");
+            action = 2;
+        }
+    });
+}
+
+// $emailSearch.submit(function (event) {
+//     event.preventDefault();
+// }
 
 // setDefaults();
 
 getServerData();
 showPastOrders();
+searchByEmail();
 
 $coffeeForm.submit(function (event) {
   event.preventDefault();
-  storeValue($order);
-  storeValue($email);
+  storeValue($order, 'order');
+  storeValue($email, 'email');
   getSize();
   getFlavor();
   getStrength();
