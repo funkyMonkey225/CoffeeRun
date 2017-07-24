@@ -125,11 +125,24 @@ html {
     box-shadow: 0 2px 2px #4A2E25;
 }
 
+.email-input:focus,
+.email-input:visited,
+.email-input:active {
+    background-color: white;
+}
+
 .subtitle {
     font-family: 'Arizonia', sans-serif;
     font-size: 2.25rem;
     text-align: center;
     color: #4A2E25;
+}
+
+.individual-orders {
+    text-align: center;
+    color: #4A2E25;
+    font-family: 'Overlock', sans-serif;
+    font-size: 1rem;
 }
 
 .orders {

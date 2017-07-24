@@ -62,6 +62,21 @@ function sendDataToServer() {
     });
 }
 
+function deleteOrder(email) {
+    var req = $.ajax ({
+        url: URL + '/' + email.attr('name'),
+        method: "DELETE"
+    });
+    req
+        .then(function() {
+            removeOrderListing(email);
+        });
+}
+
+function removeOrderListing(element) {
+    element.remove();
+}
+
 function coffeeStrengthRating (strength) { 
     if (strength === 0) {
         return "Decaf";
@@ -86,60 +101,41 @@ function filterUndefined(element) {
     }
 }
 
+
 function drawOrders() {
-    var parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
+    parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
     var emails = Object.keys(parsedOrders);
     var ordersArray = emails.map(function (email) {
         var data = parsedOrders[email];
         return data;
     })
-    var $subtitle = $('<h2></h2>', {
-        'text': "Past Coffee Orders",
-        'class': 'subtitle'
-    });
-    $displayDiv.append($subtitle);
     ordersArray.forEach(function(order1, i) {
         var strengthRate = coffeeStrengthRating(ordersArray[i]['strength'])
         var $orderPrint = $('<p></p>', {
             'text': ordersArray[i]['emailAddress'] + ": " + strengthRate + " " + filterUndefined(ordersArray[i]['size']) + filterUndefined(ordersArray[i]['flavor']) + ordersArray[i]['coffee'],
             'class': 'display-order',
-            'data-draw': 'order' 
+            'data-draw': 'order', 
+            'name': ordersArray[i]['emailAddress']
         });
         $displayDiv.append($orderPrint);
     });
 }
 
-function drawEmailSearch() {
-    var $search = $('<input>', {
-        'class': 'form-control',
-        'type': 'email',
-        'name': 'emailSearch',
-        'data-role': 'email-search',
-        'placeholder': 'Enter your email.'
-    });
-    $emailSearch.append($search);
-    var $submitBtn = $('<button></button>', {
-        'type': 'submit',
-        'class': 'btn btn-default',
-        'text': 'Search'
-    })
-    $emailSearch.append($submitBtn);
-}
-
 function drawOrderByEmail(email) {
     var parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
-    var $subtitle = $('<h2></h2>', {
-        'text': "My Order",
-        'class': 'subtitle'
+    var $orderDiv = $('<div></div>', {
+        'class': 'individual-orders',
+        'data-draw': 'individual-orders'
     });
-    $myOrderDiv.append($subtitle);
     var strengthRate = coffeeStrengthRating(parsedOrders[email]['strength']);
     var $searchedOrder = $('<p></p>', {
-        'text': "Strength: " + strengthRate + "\nSize: " + parsedOrders[email]['size'] + "\nFlavor: " + parsedOrders[email]['flavor'] + "\nType: " + parsedOrders[email]['coffee']
+        'text': "Strength: " + strengthRate + "\nSize: " + parsedOrders[email]['size'] + "\nFlavor: " + parsedOrders[email]['flavor'] + "\nType: " + parsedOrders[email]['coffee'],
+        'data-role': 'individual-order',
+        'name': email
     })
-    $myOrderDiv.append($searchedOrder);
+    $orderDiv.append($searchedOrder);
+    $myOrderDiv.append($orderDiv);
 }
-
 
 function showPastOrders() {
     var action = 1;
@@ -180,20 +176,30 @@ function searchByEmail() {
     });
 }
 
+function addListener() {
+    $('[data-draw="display"]').on('click', $('p'), function(event) {
+    event.preventDefault();
+    deleteOrder($(event.target));
+    })
+}
+
 $emailSearch.submit(function (event) {
     event.preventDefault();
     var searchedEmail = $('[data-role="email-search"]').val();
-      if ($myOrderDiv.children()) {
-        $myOrderDiv.empty();
+      if ($('[data-draw="individual-orders"]').children()) {
+        $('[data-draw="individual-orders"]').empty();
     }
     drawOrderByEmail(searchedEmail);
 })
 
 // setDefaults();
 $emailSearch.hide();
+$displayDiv.hide();
+$myOrderDiv.hide();
 getServerData();
 showPastOrders();
 searchByEmail();
+addListener();
 
 $coffeeForm.submit(function (event) {
   event.preventDefault();
