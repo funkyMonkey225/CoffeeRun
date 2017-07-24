@@ -48,12 +48,7 @@ function getServerData() {
     
 function storeData(orders) {
     localStorage.setItem('priorOrders', JSON.stringify(orders));
-    // parseData();
 }
-
-// function parseData(dict) {
-//     parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
-// }
 
 function sendDataToServer() {
     $.post(URL, order, function (resp) {
@@ -92,7 +87,11 @@ function drawOrders() {
         var data = parsedOrders[email];
         return data;
     })
-
+    var $subtitle = $('<h2></h2>', {
+        'text': "Past Coffee Orders",
+        'class': 'subtitle'
+    });
+    $displayDiv.append($subtitle);
     ordersArray.forEach(function(order1, i) {
         var strengthRate = coffeeStrengthRating(ordersArray[i]['strength'])
         var $orderPrint = $('<p></p>', {
@@ -104,12 +103,32 @@ function drawOrders() {
     });
 }
 
+function showPastOrders() {
+    var action = 1;
+    $('[data-role="past-orders-button"]').on('click', function (event) {
+        event.preventDefault();
+        if (action === 1) {
+            $displayDiv.show();
+            drawOrders();
+            $('[data-role="past-orders-button"]').text("Hide Past Orders");
+            action = 2;
+        } else if (action === 2) {
+            $displayDiv.hide();
+            $('[data-role="past-orders-button"]').text("Show Past Orders");
+            action = 3;
+        } else {
+            $displayDiv.show();
+            $('[data-role="past-orders-button"]').text("Hide Past Orders");
+            action = 2;
+        }
+    });
+}
 
 
 // setDefaults();
 
 getServerData();
-drawOrders();
+showPastOrders();
 
 $coffeeForm.submit(function (event) {
   event.preventDefault();

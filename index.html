@@ -12,8 +12,8 @@
     <header class="jumbotron">
       <h1 class="title">Coffee Run</h1>
     </header>
-    <section class="content">
-      <div class="panel panel-default">
+    <div class="panel panel-default">
+      <section class="content">
         <div class="panel-body">
           <form data-coffee-order="form">
             <div class="form-group">
@@ -57,12 +57,18 @@
             </div>
             <button type="submit" class="btn btn-default">Submit</button>
             <button type="reset" class="btn btn-default">Reset</button>
+            <button data-role="my-order-button" class="btn btn-default">Show My Most Recent Order</button>
+            <button data-role="past-orders-button" class="btn btn-default">Show Past Orders</button>
           </form>
         </div>
-        <h2 class="subtitle">Past Coffee Orders</h2>
-        <div class="orders" data-draw="display"></div>
-      </div>
-    </section>
+          <div class="orders" data-draw="display"></div>
+      </section>
+      <footer>
+        <div class="footer">
+            <h6>Keeping you caffeinated since 1997.</h6>
+        </div>
+      </footer>
+    </div>
     <script
   src="https://code.jquery.com/jquery-3.2.1.min.js"
   integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
