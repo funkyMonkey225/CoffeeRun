@@ -126,6 +126,20 @@ function drawEmailSearch() {
     $emailSearch.append($submitBtn);
 }
 
+function drawOrderByEmail(email) {
+    var parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
+    var $subtitle = $('<h2></h2>', {
+        'text': "My Order",
+        'class': 'subtitle'
+    });
+    $myOrderDiv.append($subtitle);
+    var strengthRate = coffeeStrengthRating(parsedOrders[email]['strength']);
+    var $searchedOrder = $('<p></p>', {
+        'text': "Strength: " + strengthRate + "\nSize: " + parsedOrders[email]['size'] + "\nFlavor: " + parsedOrders[email]['flavor'] + "\nType: " + parsedOrders[email]['coffee']
+    })
+    $myOrderDiv.append($searchedOrder);
+}
+
 
 function showPastOrders() {
     var action = 1;
@@ -154,16 +168,19 @@ function searchByEmail() {
         event.preventDefault();
         if (action === 1) {
             $emailSearch.show();
+            $myOrderDiv.show();
             drawEmailSearch();
-            $('[data-role="email-button"]').text("Hide My Order");
+            $('[data-role="email-button"]').text("Hide Search");
             action = 2;
         } else if (action === 2) {
             $emailSearch.hide();
+            $myOrderDiv.hide();
             $('[data-role="email-button"]').text("Search by Email");
             action = 3;
         } else {
             $emailSearch.show();
-            $('[data-role="email-button"]').text("Hide My Order");
+            $myOrderDiv.show();
+            $('[data-role="email-button"]').text("Hide Search");
             action = 2;
         }
     });
@@ -172,17 +189,10 @@ function searchByEmail() {
 $emailSearch.submit(function (event) {
     event.preventDefault();
     var searchedEmail = $('[data-role="email-search"]').val();
-    var parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
-    var $subtitle = $('<h2></h2>', {
-        'text': "My Order",
-        'class': 'subtitle'
-    });
-    $myOrderDiv.append($subtitle);
-    var strengthRate = coffeeStrengthRating(parsedOrders[searchedEmail]['strength']);
-    var $searchedOrder = $('<p></p>', {
-        'text': "Strength: " + strengthRate + "\nSize: " + parsedOrders[searchedEmail]['size'] + "\nFlavor: " + parsedOrders[searchedEmail]['flavor'] + "\nType: " + parsedOrders[searchedEmail]['coffee']
-    })
-    $myOrderDiv.append($searchedOrder);
+      if ($myOrderDiv.children()) {
+        $myOrderDiv.empty();
+    }
+    drawOrderByEmail(searchedEmail);
 })
 
 // setDefaults();
