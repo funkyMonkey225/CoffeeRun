@@ -103,7 +103,7 @@ function drawOrders() {
         var $orderPrint = $('<p></p>', {
             'text': ordersArray[i]['emailAddress'] + ": " + strengthRate + " " + filterUndefined(ordersArray[i]['size']) + filterUndefined(ordersArray[i]['flavor']) + ordersArray[i]['coffee'],
             'class': 'display-order',
-            'data-draw': 'order', 
+            'data-draw': 'order' 
         });
         $displayDiv.append($orderPrint);
     });
@@ -169,19 +169,13 @@ function searchByEmail() {
         if (action === 1) {
             $emailSearch.show();
             $myOrderDiv.show();
-            drawEmailSearch();
             $('[data-role="email-button"]').text("Hide Search");
             action = 2;
-        } else if (action === 2) {
+        } else {
             $emailSearch.hide();
             $myOrderDiv.hide();
             $('[data-role="email-button"]').text("Search by Email");
-            action = 3;
-        } else {
-            $emailSearch.show();
-            $myOrderDiv.show();
-            $('[data-role="email-button"]').text("Hide Search");
-            action = 2;
+            action = 1;
         }
     });
 }
@@ -196,7 +190,7 @@ $emailSearch.submit(function (event) {
 })
 
 // setDefaults();
-
+$emailSearch.hide();
 getServerData();
 showPastOrders();
 searchByEmail();

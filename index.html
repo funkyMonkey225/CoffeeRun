@@ -61,7 +61,14 @@
             <button data-role="past-orders-button" class="btn btn-default">Show Past Orders</button>
           </form>
         </div>
-          <form class="form form-group" data-role="email-search-form"></form>
+          <form class="form panel-body" data-role="email-search-form">
+            <div class="input-group">
+              <input class="form-control email-input" type="email" name="emailSearch" data-role="email-search" value="" placeholder="Enter your email.">
+              <span class="input-group-btn">
+                <button type="submit" class="btn btn-default">Search</button>
+              </span>
+            </div>
+          </form>
           <div class="my-order" data-draw="my-order"></div>
           <div class="orders" data-draw="display"></div>
       </section>
