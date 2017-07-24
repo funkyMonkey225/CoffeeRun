@@ -169,9 +169,21 @@ function searchByEmail() {
     });
 }
 
-// $emailSearch.submit(function (event) {
-//     event.preventDefault();
-// }
+$emailSearch.submit(function (event) {
+    event.preventDefault();
+    var searchedEmail = $('[data-role="email-search"]').val();
+    var parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
+    var $subtitle = $('<h2></h2>', {
+        'text': "My Order",
+        'class': 'subtitle'
+    });
+    $myOrderDiv.append($subtitle);
+    var strengthRate = coffeeStrengthRating(parsedOrders[searchedEmail]['strength']);
+    var $searchedOrder = $('<p></p>', {
+        'text': "Strength: " + strengthRate + "\nSize: " + parsedOrders[searchedEmail]['size'] + "\nFlavor: " + parsedOrders[searchedEmail]['flavor'] + "\nType: " + parsedOrders[searchedEmail]['coffee']
+    })
+    $myOrderDiv.append($searchedOrder);
+})
 
 // setDefaults();
 
