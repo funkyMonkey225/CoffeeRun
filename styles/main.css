@@ -122,6 +122,11 @@ html {
 
 .email-input {
     height: 36px;
+    background-color: white;
+    box-shadow: 0 2px 2px #4A2E25;
+}
+
+.input-group {
     box-shadow: 0 2px 2px #4A2E25;
 }
 
@@ -130,6 +135,13 @@ html {
 .email-input:active {
     background-color: white;
 }
+
+input:-webkit-autofill, 
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+    -webkit-box-shadow: 0 0 0 30px white inset;
+}
+
 
 .subtitle {
     font-family: 'Arizonia', sans-serif;
@@ -149,7 +161,7 @@ html {
     text-align: center;
     color: #4A2E25;
     font-family: 'Overlock', sans-serif;
-    font-size: 1rem;
+    font-size: 1.1rem;
     height: 250px;
     overflow-x: scroll;
     margin-bottom: 0;
@@ -157,6 +169,9 @@ html {
 }
 
 .footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     color: #4A2E25;
     font-family: 'Overlock', sans-serif;
     font-size: 4rem;
@@ -165,18 +180,39 @@ html {
     margin: 0;
 }
 
+.slogan,
+.slogan2 {
+    margin: 0;
+    font-size: 1rem;
+}
+
+.slogan2 {
+    font-style: italic;
+}
+
+.brand {
+    font-family: 'Arizonia', sans-serif;
+    font-size: 2.25rem;
+    margin: .25rem 0;
+    color: #4A2E25;
+}
+
 @media screen and (min-width: 550px) {
     .jumbotron {
         height: 300px;
     }
     .jumbotron h1 {
     font-size: 5rem;
+    margin-top: 50px;
     }
 }
 
 @media screen and (min-width: 650px) {
     .jumbotron {
         height: 350px;
+    }
+    .jumbotron h1 {
+    margin-top: 75px;
     }
     .subtitle {
     font-size: 2.5rem;
@@ -197,6 +233,7 @@ html {
         height: 450px;
     }
     .jumbotron h1 {
+    margin-top: 100px;
     font-size: 7rem;
     }
     .subtitle {

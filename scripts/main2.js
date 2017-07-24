@@ -101,6 +101,17 @@ function filterUndefined(element) {
     }
 }
 
+function filterUndefined2(element) {
+    if (element === undefined || element === "None") {
+        return "Not specified";
+    } else {
+        return capitalizeFirstLetter(element);
+    }
+}
+
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 function drawOrders() {
     parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
@@ -128,12 +139,26 @@ function drawOrderByEmail(email) {
         'data-draw': 'individual-orders'
     });
     var strengthRate = coffeeStrengthRating(parsedOrders[email]['strength']);
-    var $searchedOrder = $('<p></p>', {
-        'text': "Strength: " + strengthRate + "\nSize: " + parsedOrders[email]['size'] + "\nFlavor: " + parsedOrders[email]['flavor'] + "\nType: " + parsedOrders[email]['coffee'],
-        'data-role': 'individual-order',
-        'name': email
-    })
-    $orderDiv.append($searchedOrder);
+    var $searchedOrder = $('<span></span>', {
+            'text': "Strength: " + strengthRate
+        });
+        $orderDiv.append($searchedOrder);
+        $orderDiv.append($('<br />'));
+    $searchedOrder = $('<span></span>', {
+            'text': "Size: " + filterUndefined2(parsedOrders[email]['size'])
+        });
+        $orderDiv.append($searchedOrder);
+        $orderDiv.append($('<br />'));
+    $searchedOrder = $('<span></span>', {
+            'text': "Flavor: " + filterUndefined2(parsedOrders[email]['flavor'])
+        });
+        $orderDiv.append($searchedOrder);
+        $orderDiv.append($('<br />'));
+    $searchedOrder = $('<span></span>', {
+            'text': "Type: " + filterUndefined2(parsedOrders[email]['coffee'])
+        });
+        $orderDiv.append($searchedOrder);
+        $orderDiv.append($('<br />'));
     $myOrderDiv.append($orderDiv);
 }
 
@@ -164,7 +189,6 @@ function searchByEmail() {
         event.preventDefault();
         if (action === 1) {
             $emailSearch.show();
-            $myOrderDiv.show();
             $('[data-role="email-button"]').text("Hide Search");
             action = 2;
         } else {
@@ -190,6 +214,7 @@ $emailSearch.submit(function (event) {
         $('[data-draw="individual-orders"]').empty();
     }
     drawOrderByEmail(searchedEmail);
+    $myOrderDiv.show();
 })
 
 // setDefaults();
