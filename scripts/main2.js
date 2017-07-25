@@ -38,15 +38,15 @@ function getStrength() {
 }
 
 
-// function setDefaults() {
-//     var flavorValue = (localStorage.getItem('flavor')).toLowerCase();
-//     $order.val(localStorage.getItem('order'));
-//     $email.val(localStorage.getItem('email'));
-//     $('input[data-role=size]:checked').val('size');
-//     $('input:radio[data-role=size]').filter('[value=' + localStorage.getItem('size') + ']').prop('checked', true);
-//     $flavor.find('option[value=' + flavorValue + ']').prop('selected', true);
-//     $('[data-role="strength"]').val(localStorage.getItem('strength'));
-// }
+function setDefaults() {
+    var flavorValue = (localStorage.getItem('flavor')).toLowerCase();
+    $order.val(localStorage.getItem('order'));
+    $email.val(localStorage.getItem('email'));
+    $('input[data-role=size]:checked').val('size');
+    $('input:radio[data-role=size]').filter('[value=' + localStorage.getItem('size') + ']').prop('checked', true);
+    $flavor.find('option[value=' + flavorValue + ']').prop('selected', true);
+    $('[data-role="strength"]').val(localStorage.getItem('strength'));
+}
 
 function getServerData() {
     var req = $.get(URL);
@@ -224,7 +224,7 @@ $emailSearch.submit(function (event) {
     $myOrderDiv.show();
 })
 
-// setDefaults();
+setDefaults();
 $emailSearch.hide();
 $displayDiv.hide();
 $myOrderDiv.hide();
