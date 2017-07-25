@@ -151,11 +151,12 @@ input:-webkit-autofill:active {
 }
 
 .my-order {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
 }
 
 .my-order h2 {
     margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .individual-orders {
