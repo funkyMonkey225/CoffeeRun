@@ -37,6 +37,13 @@ function getStrength() {
     localStorage.setItem('strength', strength);
 }
 
+function getFormValues() {
+    storeValue($order, 'order');
+    storeValue($email, 'email');
+    getSize();
+    getFlavor();
+    getStrength();
+}
 
 function setDefaults() {
     var flavorValue = (localStorage.getItem('flavor')).toLowerCase();
@@ -60,8 +67,8 @@ function storeData(orders) {
 }
 
 function sendDataToServer() {
-    $.post(URL, order, function (resp) {
-    });
+    var req = $.post(URL, order);
+    req.then(getServerData);
 }
 
 function deleteOrder(email) {
@@ -229,13 +236,8 @@ function addEmailSubmitListner() {
 function addCoffeeFormListener() {
     $coffeeForm.submit(function (event) {
         event.preventDefault();
-        storeValue($order, 'order');
-        storeValue($email, 'email');
-        getSize();
-        getFlavor();
-        getStrength();
+        getFormValues();
         sendDataToServer();
-        getServerData();
     });
 }
 
