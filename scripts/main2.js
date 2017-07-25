@@ -8,6 +8,7 @@ var $strength = $('[data-role="strength"]');
 var $displayDiv = $('[data-draw="display"]');
 var $myOrderDiv = $('[data-draw="my-order"]');
 var $emailSearch = $('[data-role="email-search-form"]');
+var $orderReceived = $('[data-draw="order-received"]');
 
 var URL = 'http://dc-coffeerun.herokuapp.com/api/coffeeorders';
 var order = {};
@@ -68,7 +69,9 @@ function storeData(orders) {
 
 function sendDataToServer() {
     var req = $.post(URL, order);
-    req.then(getServerData);
+    req
+        .then(getServerData)
+        .then(drawReceipt);
 }
 
 function deleteOrder(email) {
@@ -120,6 +123,21 @@ function filterUndefined2(element) {
 
 function capitalizeFirstLetter(string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
+function drawReceipt() {
+    if ($orderReceived.children()) {
+        $orderReceived.empty();
+    }
+    var $receipt = $('<div></div>', {
+        'class': 'receipt',
+        'data-draw': 'receipt'
+    });
+    var $confirmation = $('<p></p>', {
+        'text': 'Thank you! Your order will be ready in 10 minutes.'
+    });
+    $receipt.append($confirmation);
+    $orderReceived.append($receipt);
 }
 
 function drawOrders() {
