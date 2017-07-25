@@ -49,7 +49,10 @@ function getStrength() {
 // }
 
 function getServerData() {
-    $.get(URL, storeData);
+    var req = $.get(URL);
+    req
+        .then(storeData)
+        .then(drawOrders);
 } 
     
 function storeData(orders) {
@@ -239,5 +242,4 @@ $coffeeForm.submit(function (event) {
     getStrength();
     sendDataToServer();
     getServerData();
-    drawOrders();
 });
