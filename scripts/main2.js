@@ -61,7 +61,6 @@ function storeData(orders) {
 
 function sendDataToServer() {
     $.post(URL, order, function (resp) {
-        console.log(resp);
     });
 }
 
@@ -174,6 +173,7 @@ function drawOrderByEmail(email) {
 }
 
 function showPastOrders() {
+    getServerData();
     var action = 1;
     $('[data-role="past-orders-button"]').on('click', function (event) {
         event.preventDefault();
@@ -207,39 +207,56 @@ function searchByEmail() {
     });
 }
 
-function addListener() {
+function addDeleteListener() {
     $('[data-draw="display"]').on('click', $('a'), function(event) {
     event.preventDefault();
     deleteOrder($(event.target));
     })
 }
 
-$emailSearch.submit(function (event) {
-    event.preventDefault();
-    var searchedEmail = $('[data-role="email-search"]').val();
-      if ($('[data-draw="individual-orders"]').children()) {
-        $('[data-draw="individual-orders"]').empty();
-    }
-    drawOrderByEmail(searchedEmail);
-    $myOrderDiv.show();
-})
+function addEmailSubmitListner() {
+    $emailSearch.submit(function (event) {
+        event.preventDefault();
+        var searchedEmail = $('[data-role="email-search"]').val();
+        if ($('[data-draw="individual-orders"]').children()) {
+            $('[data-draw="individual-orders"]').empty();
+        }
+        drawOrderByEmail(searchedEmail);
+        $myOrderDiv.show();
+    })
+}
 
-setDefaults();
-$emailSearch.hide();
-$displayDiv.hide();
-$myOrderDiv.hide();
-getServerData();
-showPastOrders();
-searchByEmail();
-addListener();
+function addCoffeeFormListener() {
+    $coffeeForm.submit(function (event) {
+        event.preventDefault();
+        storeValue($order, 'order');
+        storeValue($email, 'email');
+        getSize();
+        getFlavor();
+        getStrength();
+        sendDataToServer();
+        getServerData();
+    });
+}
 
-$coffeeForm.submit(function (event) {
-    event.preventDefault();
-    storeValue($order, 'order');
-    storeValue($email, 'email');
-    getSize();
-    getFlavor();
-    getStrength();
-    sendDataToServer();
-    getServerData();
-});
+function hideOnLoad() {
+    $emailSearch.hide();
+    $displayDiv.hide();
+    $myOrderDiv.hide();
+}
+
+function setListeners() {
+    addDeleteListener();
+    addEmailSubmitListner();
+    searchByEmail();
+    showPastOrders();
+    addCoffeeFormListener();
+}
+
+function main() {
+    setDefaults();
+    hideOnLoad();
+    setListeners();
+}
+
+main();
