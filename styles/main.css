@@ -157,16 +157,41 @@ input:-webkit-autofill:active {
     font-size: 1rem;
 }
 
-.display-order {
-    text-align: center;
-    text-decoration: none;
+.orders h2 {
+    margin: 0;
+}
+
+.orders p {
     color: #4A2E25;
     font-family: 'Overlock', sans-serif;
-    font-size: 1.1rem;
+    font-size: 1rem;
+    font-style: italic;
+    margin-bottom: 5px;
+}
+
+.orders {
+    text-align: center;
+}
+
+.display-order a {
+    text-align: center;
+    line-height: 1.75rem;
     height: 250px;
     overflow-x: scroll;
     margin-bottom: 0;
     padding-bottom: 0;
+}
+
+.display-order a {
+    text-decoration: none;
+    color: #4A2E25;
+    font-family: 'Overlock', sans-serif;
+    font-size: 1.1rem;
+}
+
+.display-order a:hover {
+    text-decoration: line-through;
+    color: #4A2E25;
 }
 
 .footer {
