@@ -136,7 +136,6 @@ function drawOrders() {
             'name': ordersArray[i]['emailAddress']
         });
         $pastOrders.append($orderPrint);
-        $pastOrders.append($('<br />'));
     });
     $displayDiv.append($pastOrders);
 }
