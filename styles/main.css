@@ -157,8 +157,9 @@ input:-webkit-autofill:active {
     font-size: 1rem;
 }
 
-.orders {
+.display-order {
     text-align: center;
+    text-decoration: none;
     color: #4A2E25;
     font-family: 'Overlock', sans-serif;
     font-size: 1.1rem;

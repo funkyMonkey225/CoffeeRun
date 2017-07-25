@@ -114,22 +114,31 @@ function capitalizeFirstLetter(string) {
 }
 
 function drawOrders() {
+    if ($('[data-draw="past-orders"]').children()) {
+        $('[data-draw="past-orders"]').remove();
+    }
     parsedOrders = JSON.parse(localStorage.getItem('priorOrders'));
     var emails = Object.keys(parsedOrders);
     var ordersArray = emails.map(function (email) {
         var data = parsedOrders[email];
         return data;
     })
+    var $pastOrders = $('<div></div>', {
+        'class': 'display-order',
+        'data-draw': 'past-orders'
+    });
     ordersArray.forEach(function(order1, i) {
         var strengthRate = coffeeStrengthRating(ordersArray[i]['strength'])
-        var $orderPrint = $('<p></p>', {
+        var $orderPrint = $('<a></a>', {
             'text': ordersArray[i]['emailAddress'] + ": " + strengthRate + " " + filterUndefined(ordersArray[i]['size']) + filterUndefined(ordersArray[i]['flavor']) + ordersArray[i]['coffee'],
             'class': 'display-order',
             'data-draw': 'order', 
             'name': ordersArray[i]['emailAddress']
         });
-        $displayDiv.append($orderPrint);
+        $pastOrders.append($orderPrint);
+        $pastOrders.append($('<br />'));
     });
+    $displayDiv.append($pastOrders);
 }
 
 function drawOrderByEmail(email) {
@@ -174,11 +183,7 @@ function showPastOrders() {
         } else if (action === 2) {
             $displayDiv.hide();
             $('[data-role="past-orders-button"]').text("Show Past Orders");
-            action = 3;
-        } else {
-            $displayDiv.show();
-            $('[data-role="past-orders-button"]').text("Hide Past Orders");
-            action = 2;
+            action = 1;
         }
     });
 }
@@ -201,7 +206,7 @@ function searchByEmail() {
 }
 
 function addListener() {
-    $('[data-draw="display"]').on('click', $('p'), function(event) {
+    $('[data-draw="display"]').on('click', $('a'), function(event) {
     event.preventDefault();
     deleteOrder($(event.target));
     })
@@ -227,12 +232,13 @@ searchByEmail();
 addListener();
 
 $coffeeForm.submit(function (event) {
-  event.preventDefault();
-  storeValue($order, 'order');
-  storeValue($email, 'email');
-  getSize();
-  getFlavor();
-  getStrength();
-  sendDataToServer();
-  getServerData();
+    event.preventDefault();
+    storeValue($order, 'order');
+    storeValue($email, 'email');
+    getSize();
+    getFlavor();
+    getStrength();
+    sendDataToServer();
+    getServerData();
+    drawOrders();
 });
