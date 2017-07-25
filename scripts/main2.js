@@ -136,7 +136,15 @@ function drawReceipt() {
     var $confirmation = $('<p></p>', {
         'text': 'Thank you! Your order will be ready in 10 minutes.'
     });
+    var $clear = $('<a></a>', {
+        'text': "clear"
+    });
+    var $view = $('<a></a>', {
+        'text': "view order"
+    });
     $receipt.append($confirmation);
+    $receipt.append($view);
+    $receipt.append($clear);
     $orderReceived.append($receipt);
 }
 

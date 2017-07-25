@@ -143,14 +143,27 @@ input:-webkit-autofill:active {
 }
 
 .order-received {
-    margin: 15px 0;
+    margin: 10px 0;
+    text-align: center;
+    font-family: 'Overlock', sans-serif;
 }
 
-.receipt {
-    font-family: 'Overlock', sans-serif;
+.receipt p {
     font-size: 1.5rem;
-    text-align: center;
     color: #4A2E25;
+    font-style: italic;
+    margin-bottom: 0;
+}
+
+.receipt a {
+    color: #BF7660;
+    margin: 0 .5rem;
+    font-size: 1rem;
+}
+
+.receipt a:hover {
+    cursor: pointer;
+    cursor: hand;
 }
 
 .subtitle {
@@ -218,6 +231,8 @@ input:-webkit-autofill:active {
 .display-order a:hover {
     text-decoration: line-through;
     color: #4A2E25;
+    cursor: pointer;
+    cursor: hand;
 }
 
 .footer {
